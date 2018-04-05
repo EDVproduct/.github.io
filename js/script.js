@@ -10,6 +10,7 @@
  let turnCount = 0;
  let sec = 0;
  let min = 0;
+ let time;
  const secText = document.querySelector('.sec');
  const minText = document.querySelector('.min');
  const turnCounter = document.querySelector('.turn');
@@ -19,10 +20,12 @@
  let clicks = [];
  let figure = document.querySelector('.back');
  const newGame = document.querySelector('.newGame');
- const retryGame = document.querySelector('.retryGame');
+  const stopTimer = document.querySelector('.timer');
+ const winner = document.querySelector('.winner');
  let newClass = [];
  let reply_click = [];
  let turn;
+
  init();
  // Initializing function
  function init() {
@@ -54,7 +57,10 @@
          turnPlace.setAttribute("id", shuffledCards[l]);
      }
  }
- 
+  newGame.addEventListener('click', function(){
+    location.reload();
+  });
+  
  /*first and second clicks detected  */
  function cardsUpdate() {
      firstClicked = document.querySelector(`#${clicks[0]}`);
@@ -72,7 +78,7 @@
  document.addEventListener('click', function(e) {
      clickedCard = e.target;
      let startMove = 0;
-     console.log(clickedCard)
+    // console.log(clickedCard)
      if (clickedCard.classList.contains('front')) {
          clickedCard.parentElement.classList.add('clicked');
          startMove++;
@@ -114,9 +120,9 @@
          }, 1000);
      }
 
-     function stopTime() {
-         clearInterval(time);
-     }
+      function stopTime() {
+    clearInterval(time);
+  }
      if (clicks.length === 2) {
          // If the clicked elements are equal, 
          if (clicks[0].slice(0, -1) === clicks[1].slice(0, -1)) {
@@ -127,11 +133,13 @@
              // scoreCount keep track of how many points player made. Each time two cards match, it sums 10 (final score is 80)
              scoreCount += 50;
              turnCount++;
-             // Max scoreCount = 400, the winning screen is shown after half second and the DOM is updated with the score, stars and time
-             if (scoreCount === 400) {
-                 stopTime();
-                 var winner = document.getElementById('winner');
-                 winner.textcontent += ("Well done!");
+             console.log(scoreCount);
+                  if (scoreCount === 400) {
+                 
+                setTimeout(function(){
+              winner.classList.remove('hide');
+                 stopTime();         
+            }, 500);
              }
              // when cards does not match, cardsUpdate update the element assigned in the DOM. Below, compareCards(); make sure they are not equal and inser .front class back
          } else if (control.indexOf(clickedCard.id) < 0) {
@@ -147,4 +155,7 @@
      }
      turnCounter.innerText = turnCount;
      scoreCounter.innerText = scoreCount;
+     stopTimer.addEventListener('click', function(){
+    clearInterval(time);
+  });
  });
