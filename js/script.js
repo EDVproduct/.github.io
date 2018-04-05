@@ -15,6 +15,11 @@
  const minText = document.querySelector('.min');
  const turnCounter = document.querySelector('.turn');
  const scoreCounter = document.querySelector('.score');
+ const finalTurn = document.querySelector('.finalturn');
+ const finalScore = document.querySelector('.finalscore');
+ const finalMin = document.querySelector('.finalmin');
+ const finalSec = document.querySelector('.finalsec');
+ const finalPanel = document.querySelector('.finalpanel')
  const cardBox = document.querySelector('.card');
  let clickedCard;
  let clicks = [];
@@ -71,15 +76,12 @@
      cardsUpdate();
      firstClicked.classList.add('face');
      secondClicked.classList.add('face');
-     console.log(firstClicked);
-     console.log(secondClicked);
      clicks = [];
  }
  document.addEventListener('click', function(e) {
      clickedCard = e.target;
      let startMove = 0;
-    // console.log(clickedCard)
-     if (clickedCard.classList.contains('front')) {
+       if (clickedCard.classList.contains('front')) {
          clickedCard.parentElement.classList.add('clicked');
          startMove++;
          if (startMove === 1) {
@@ -133,10 +135,16 @@
              // scoreCount keep track of how many points player made. Each time two cards match, it sums 10 (final score is 80)
              scoreCount += 50;
              turnCount++;
-             console.log(scoreCount);
+             
                   if (scoreCount === 400) {
                  
                 setTimeout(function(){
+                     finalPanel.classList.remove('hide');
+                     finalPanel.style.visibility = 'visible';
+              finalTurn.innerText = "movements:" + turnCount;
+              finalScore.innerText = "score" + scoreCount;
+              finalMin.innerText = "0:" + min;
+              finalSec.innerText = sec;
               winner.classList.remove('hide');
                  stopTime();         
             }, 500);
@@ -155,7 +163,5 @@
      }
      turnCounter.innerText = turnCount;
      scoreCounter.innerText = scoreCount;
-     stopTimer.addEventListener('click', function(){
-    clearInterval(time);
-  });
+  
  });

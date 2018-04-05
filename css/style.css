@@ -81,6 +81,21 @@ div#dib4b{
 .hide {
   display: none;
 }
+.finalpanel { 
+  text-align: center;
+  position: relative;
+  
+  }
+.finalpanel {
+  position: relative;
+  display: inline-block;
+  border: 1px double #000;
+  background-color: #e3d6bf;
+  position: absolute;
+  z-index: 1;
+  padding: 50px;
+  visibility: hidden;
+}
 .cap {
 position:absolute;
 font-family: 'Courgette', cursive;
